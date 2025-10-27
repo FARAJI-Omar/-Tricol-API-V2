@@ -45,4 +45,11 @@ public class SupplierController {
         supplierService.deleteSupplier(id);
         return ResponseEntity.noContent().build();
     }
+
+    // search suppliers by query (society or contact agent)
+    @GetMapping("/search")
+    public ResponseEntity<List<SupplierDTO>> searchSuppliers(@RequestParam("q") String query) {
+        List<SupplierDTO> suppliers = supplierService.searchSuppliers(query);
+        return ResponseEntity.ok(suppliers);
+    }
 }

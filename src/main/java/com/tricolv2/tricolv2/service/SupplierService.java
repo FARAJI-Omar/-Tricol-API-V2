@@ -65,4 +65,13 @@ public class SupplierService {
                 .orElseThrow(() -> new RuntimeException("Supplier not found with id: " + id));
         supplierRepository.delete(existingSupplier);
     }
+
+    // search suppliers by society or contact agent
+    public List<SupplierDTO> searchSuppliers(String query) {
+        return supplierRepository
+            .findBySocietyContainingIgnoreCaseOrContactAgentContainingIgnoreCase(query, query)
+            .stream()
+            .map(supplierMapper::toDTO)
+            .collect(Collectors.toList());
+    }
 }
